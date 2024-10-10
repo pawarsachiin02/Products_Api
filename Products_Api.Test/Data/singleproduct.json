@@ -1,0 +1,11 @@
+{
+  "products": {
+    "title": "A Red Hat",
+    "price": 23,
+    "sizes": [
+      "small",
+      "large"
+    ],
+    "description": "This hat perfectly pairs with a green tie."
+  }
+}
