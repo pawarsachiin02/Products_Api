@@ -18,7 +18,7 @@ namespace Products_Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> products(string? filter = "minprice=5&maxprice=20&size=medium&highlight=green,blue")
+        public async Task<IActionResult> products(string? filter)
         {
             _logger.LogInformation("Products Controller execution Started");
             try
@@ -101,8 +101,11 @@ namespace Products_Api.Controllers
                     {
                        //Code for Products data with filters
 
-                        var filteredSizeData = jsonProductDetails.products.Where(x => ((minPrice != 0 && maxPrice != 0 && x.price >= minPrice && x.price <= maxPrice)
-                                                                                         || (size != "" && x.sizes.Contains(size)))).ToList();
+                        var filteredSizeData = jsonProductDetails.products.Where(x => (
+                                                                                        (minPrice != 0 && maxPrice != 0 && x.price >= minPrice && x.price <= maxPrice)
+                                                                                         || 
+                                                                                         (size != "" && x.sizes.Contains(size)))
+                                                                                         ).ToList();
                        // looping for multiple highlight items
                         for (int i = 0; i < highlightArray.Length; i++)
                         {
@@ -112,7 +115,7 @@ namespace Products_Api.Controllers
                                 if (filteredSizeData[j].description.Contains(highlightArray[i].ToString()))
                                 {
                                     //Assigning <em></em> according to highlight color
-                                    filteredSizeData[j].description = filteredSizeData[j].description.Replace("green", "<em>green</em>").Replace("blue", "<em>blue</em>");
+                                    filteredSizeData[j].description = filteredSizeData[j].description.Replace("green", "<em>green</em>").Replace("blue", "<em>blue</em>").Replace("red", "<em>red</em>");
                                 }
                             }
                         }
